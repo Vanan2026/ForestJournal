@@ -133,6 +133,28 @@ public class UIManager : MonoBehaviour
                 var es = UnityEngine.FindObjectOfType<EndingsSystem>();
                 if (es != null) es.ShowEndingPreview();
             });
+
+        // === 音效按钮 ===
+        var audioPanel = CreatePanel(canvasObj.transform, "AudioPanel", 10, Screen.height - 90, 180, 55);
+        CreateText(audioPanel.transform, "Title", "音效", 0, 20, 160, 25);
+        CreateButton(audioPanel.transform, "BtnSound", "🔊 音效", -75, -5, 75, 35,
+            () => {
+                var audio = UnityEngine.FindObjectOfType<AudioSystem>();
+                if (audio != null) audio.ToggleMute();
+                GameManager.instance?.AddLog("🔊 音效切换");
+            });
+        CreateButton(audioPanel.transform, "BtnBGM", "🎵 音乐", -75, -40, 75, 35,
+            () => {
+                var audio = UnityEngine.FindObjectOfType<AudioSystem>();
+                if (audio != null)
+                {
+                    var gm = GameManager.instance;
+                    if (gm != null && gm.gs == "victory")
+                        audio.PlayBGM("forest");
+                    else
+                        audio.PlayBGM("forest");
+                }
+            });
     }
 
     GameObject CreatePanel(Transform parent, string name, int x, int y, int w, int h)

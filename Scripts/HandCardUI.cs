@@ -93,6 +93,7 @@ public class HandCardUI : MonoBehaviour
     {
         isCombatActive = false;
         AddCombatLog($"🎉 胜利！击败了 {currentEnemy.enemyName}！");
+        FindObjectOfType<AudioSystem>()?.OnVictory();
 
         // 奖励
         if (GameManager.instance != null)
@@ -122,6 +123,7 @@ public class HandCardUI : MonoBehaviour
     {
         isCombatActive = false;
         AddCombatLog($"💀 战斗失败...");
+        FindObjectOfType<AudioSystem>()?.OnDefeat();
 
         if (GameManager.instance != null)
             GameManager.instance.threatLevel = Mathf.Min(GameManager.instance.threatLevel + 1, 5);
@@ -194,6 +196,7 @@ public class HandCardUI : MonoBehaviour
             int damage = card.baseDamage + (GameManager.instance?.selectedMember?.attack ?? 12);
             currentEnemy.hp -= damage;
             AddCombatLog($"⚔️ 攻击！命中 {damage} 伤害");
+            FindObjectOfType<AudioSystem>()?.OnAttack();
 
             if (currentEnemy.hp <= 0)
             {
@@ -215,6 +218,7 @@ public class HandCardUI : MonoBehaviour
         int defense = (GameManager.instance?.selectedMember?.defense ?? 8) + card.baseDamage;
         defenseBonus = Mathf.RoundToInt(defense * 0.5f);
         AddCombatLog($"🛡️ 防御姿态！受伤-50%");
+        FindObjectOfType<AudioSystem>()?.OnDefend();
     }
 
     void ExecuteHeavyAttack(Card card)
@@ -226,6 +230,7 @@ public class HandCardUI : MonoBehaviour
             int damage = card.baseDamage * 2 + (GameManager.instance?.selectedMember?.attack ?? 12);
             currentEnemy.hp -= damage;
             AddCombatLog($"💥 重击！命中 {damage} 伤害");
+            FindObjectOfType<AudioSystem>()?.OnSkill();
 
             if (currentEnemy.hp <= 0)
             {
@@ -247,6 +252,7 @@ public class HandCardUI : MonoBehaviour
         int heal = card.baseHeal + (GameManager.instance?.selectedMember?.intelligence / 2);
         playerHP = Mathf.Min(playerHP + heal, playerMaxHP);
         AddCombatLog($"💚 治愈！恢复 {heal} HP");
+        FindObjectOfType<AudioSystem>()?.OnSkill();
 
         // 草药消耗（草药学技能：草药治疗不消耗）
         var skills = UnityEngine.FindObjectOfType<SkillsSystem>();

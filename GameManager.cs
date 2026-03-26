@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
         var quest = FindObjectOfType<QuestSystem>();
         if (quest != null)
             quest.OnResourceGathered(resourceType.ToLower(), amount + bonus);
+        FindObjectOfType<AudioSystem>()?.OnGather();
 
         // 危险事件
         if (UnityEngine.Random.value < 0.15f)
