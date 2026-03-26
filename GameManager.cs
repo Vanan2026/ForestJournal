@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     public int ore = 0;
     public int bone = 0;
     public int soulEssence = 0;
+    public int leather = 0;    // 皮革
+    public int water = 0;     // 水
+    public int oil = 0;       // 油
+    public int glass = 0;    // 玻璃
 
     [Header("威胁系统")]
     public int threatLevel = 1;  // 1-5

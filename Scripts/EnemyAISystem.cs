@@ -2,8 +2,9 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// 差异化敌人AI系统 v1.0
+/// 差异化敌人AI系统 v1.1
 /// 每种敌人有独特的行为模式和战斗策略
+/// 18种敌人类型：森林/黑雾主题全覆盖
 /// </summary>
 public class EnemyAISystem : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class EnemyAISystem : MonoBehaviour
     {
         enemyTypes = new EnemyType[]
         {
+            // ============ 原有9种敌人 ============
             new EnemyType
             {
                 id = "shadow_wolf",
@@ -156,6 +158,142 @@ public class EnemyAISystem : MonoBehaviour
                 specialDesc = "自然之怒：3连击，每击伤害递减（100%/75%/50%），并有几率治疗自身",
                 lootBonus = new int[] { 5, 10 }, // soul essence + memories
                 dropChance = 1.0f
+            },
+            // ============ 新增9种敌人 ============
+            new EnemyType
+            {
+                id = "rotting_deer",
+                name = "腐化鹿",
+                description = "被黑雾侵蚀的森林之鹿，腐蚀之角可腐蚀护甲",
+                baseHP = 40,
+                baseATK = 14,
+                attackVariance = 4,
+                behavior = EnemyBehavior.Corrupter,
+                specialAbility = "corrosive_horn",
+                attackCount = 1,
+                specialDesc = "腐蚀之角：攻击降低目标防御2点，持续2回合",
+                lootBonus = new int[] { 1, 2, 2, 4 },  // food, bone
+                dropChance = 0.35f
+            },
+            new EnemyType
+            {
+                id = "blackwing_mosquito",
+                name = "黑翼蚊",
+                description = "黑雾滋生的吸血蚊群，成群结队发动攻击",
+                baseHP = 15,
+                baseATK = 6,
+                attackVariance = 2,
+                behavior = EnemyBehavior.Swarm,
+                specialAbility = "swarm_attack",
+                attackCount = 3,
+                specialDesc = "群体叮咬：连续3次低伤害攻击，总伤害可突破防御",
+                lootBonus = new int[] { 0, 1 },  // blood sac
+                dropChance = 0.2f
+            },
+            new EnemyType
+            {
+                id = "swamp_leech",
+                name = "沼泽蛭",
+                description = "潜伏在沼泽中的吸血怪物，攻击附带减速",
+                baseHP = 30,
+                baseATK = 10,
+                attackVariance = 3,
+                behavior = EnemyBehavior.Leech,
+                specialAbility = "blood_suck",
+                attackCount = 1,
+                specialDesc = "吸血减速：造成伤害的40%转化为HP，并使目标减速1回合",
+                lootBonus = new int[] { 1, 2 },  // herb
+                dropChance = 0.3f
+            },
+            new EnemyType
+            {
+                id = "ruins_guardian",
+                name = "废墟守卫",
+                description = "古老废墟中的石头傀儡进阶版，能自我修复",
+                baseHP = 120,
+                baseATK = 12,
+                attackVariance = 4,
+                behavior = EnemyBehavior.Regen,
+                specialAbility = "self_repair",
+                attackCount = 1,
+                specialDesc = "自我修复：每回合回复5HP，被击败时自爆造成范围伤害",
+                lootBonus = new int[] { 2, 4 },  // stone, ancient shard
+                dropChance = 0.4f
+            },
+            new EnemyType
+            {
+                id = "ghost_wolf",
+                name = "幽灵狼",
+                description = "怨念化成的狼灵，能够分裂出影子分身",
+                baseHP = 25,
+                baseATK = 12,
+                attackVariance = 3,
+                behavior = EnemyBehavior.Phantom,
+                specialAbility = "shadow_clone",
+                attackCount = 2,
+                specialDesc = "影子分身：30%概率制造一个分身，分身可抵挡一次攻击",
+                lootBonus = new int[] { 1, 3 },  // soul essence
+                dropChance = 0.35f
+            },
+            new EnemyType
+            {
+                id = "blackmist_tentacle",
+                name = "黑雾触手",
+                description = "黑雾凝聚而成的触手，从地下发起攻击",
+                baseHP = 45,
+                baseATK = 18,
+                attackVariance = 5,
+                behavior = EnemyBehavior.AoE,
+                specialAbility = "ground_strike",
+                attackCount = 1,
+                specialDesc = "地面打击：对目标及其相邻单位造成50%溅射伤害",
+                lootBonus = new int[] { 1, 2 },  // tentacle
+                dropChance = 0.3f
+            },
+            new EnemyType
+            {
+                id = "toxic_mushroom",
+                name = "剧毒蘑菇",
+                description = "黑雾滋生的变异蘑菇，释放有毒孢子",
+                baseHP = 35,
+                baseATK = 8,
+                attackVariance = 3,
+                behavior = EnemyBehavior.AoEPoison,
+                specialAbility = "spore_cloud",
+                attackCount = 1,
+                specialDesc = "孢子云：对区域内所有敌人造成中毒，每回合-4HP持续2回合",
+                lootBonus = new int[] { 2, 3 },  // mushroom
+                dropChance = 0.25f
+            },
+            new EnemyType
+            {
+                id = "shadow_hunter",
+                name = "暗影猎手",
+                description = "隐匿于黑雾中的远程杀手，攻击后短暂消失",
+                baseHP = 28,
+                baseATK = 16,
+                attackVariance = 4,
+                behavior = EnemyBehavior.Stealth,
+                specialAbility = "vanish",
+                attackCount = 1,
+                specialDesc = "消失：攻击后进入隐身，下回合攻击必定暴击+无视防御",
+                lootBonus = new int[] { 1, 2 },  // shadow dust
+                dropChance = 0.35f
+            },
+            new EnemyType
+            {
+                id = "nightmare_weaver",
+                name = "噩梦编织者",
+                description = "能侵入猎物梦境的恐惧化身，令目标陷入恐慌",
+                baseHP = 55,
+                baseATK = 13,
+                attackVariance = 5,
+                behavior = EnemyBehavior.Fearmonger,
+                specialAbility = "nightmare",
+                attackCount = 1,
+                specialDesc = "噩梦之触：35%概率使目标恐惧，接下来2回合攻击力-50%",
+                lootBonus = new int[] { 2, 4 },  // soul essence, nightmare shard
+                dropChance = 0.4f
             }
         };
     }
@@ -183,11 +321,11 @@ public class EnemyAISystem : MonoBehaviour
     {
         switch (threat)
         {
-            case 1: return new[] { FindType("shadow_wolf"), FindType("poison_spider") };
-            case 2: return new[] { FindType("shadow_wolf"), FindType("poison_spider"), FindType("mist_spirit"), FindType("swamp_frog") };
-            case 3: return new[] { FindType("mist_spirit"), FindType("darkbeast"), FindType("swamp_frog"), FindType("stone_lizard") };
-            case 4: return new[] { FindType("darkbeast"), FindType("mutant_tree"), FindType("stone_lizard"), FindType("fog_lord") };
-            case 5: return new[] { FindType("fog_lord"), FindType("mutant_tree"), FindType("darkbeast") };
+            case 1: return new[] { FindType("shadow_wolf"), FindType("poison_spider"), FindType("blackwing_mosquito") };
+            case 2: return new[] { FindType("shadow_wolf"), FindType("poison_spider"), FindType("mist_spirit"), FindType("swamp_frog"), FindType("swamp_leech"), FindType("ghost_wolf") };
+            case 3: return new[] { FindType("mist_spirit"), FindType("darkbeast"), FindType("swamp_frog"), FindType("stone_lizard"), FindType("rotting_deer"), FindType("toxic_mushroom") };
+            case 4: return new[] { FindType("darkbeast"), FindType("mutant_tree"), FindType("stone_lizard"), FindType("fog_lord"), FindType("ruins_guardian"), FindType("blackmist_tentacle"), FindType("shadow_hunter"), FindType("nightmare_weaver") };
+            case 5: return new[] { FindType("fog_lord"), FindType("mutant_tree"), FindType("darkbeast"), FindType("nightmare_weaver"), FindType("ruins_guardian") };
             default: return new[] { FindType("shadow_wolf") };
         }
     }
@@ -280,6 +418,61 @@ public class EnemyAISystem : MonoBehaviour
                 enemy.hp = Mathf.Min(enemy.hp + drain, enemy.maxHP);
                 attack.lifeDrain = drain;
             }
+
+            // 沼泽蛭吸血减速
+            if (enemy.typeId == "swamp_leech" && enemy.hp < enemy.maxHP)
+            {
+                int drain = Mathf.RoundToInt(finalDamage * 0.4f);
+                enemy.hp = Mathf.Min(enemy.hp + drain, enemy.maxHP);
+                attack.lifeDrain = drain;
+                attack.addedEffect = "slow";
+            }
+
+            // 幽灵狼影子分身
+            if (enemy.typeId == "ghost_wolf")
+            {
+                if (UnityEngine.Random.value < 0.3f)
+                {
+                    enemy.hasShield = true;
+                    attack.addedEffect = "shield_clone";
+                }
+            }
+
+            // 黑雾触手溅射伤害（AoE）
+            if (enemy.typeId == "blackmist_tentacle")
+            {
+                int splashDamage = Mathf.RoundToInt(finalDamage * 0.5f);
+                attack.splashDamage = splashDamage;
+            }
+
+            // 暗影猎手隐身暴击
+            if (enemy.typeId == "shadow_hunter")
+            {
+                if (enemy.isInvisible)
+                {
+                    attack.damage = Mathf.RoundToInt(attack.damage * 2f);
+                    attack.addedEffect = "crit";
+                    enemy.isInvisible = false;
+                }
+            }
+
+            // 噩梦编织者恐惧效果
+            if (enemy.typeId == "nightmare_weaver")
+            {
+                if (UnityEngine.Random.value < 0.35f)
+                {
+                    attack.addedEffect = "fear";
+                }
+            }
+
+            // 废墟守卫自爆（当HP低于30%时）
+            if (enemy.typeId == "ruins_guardian" && enemy.hp < enemy.maxHP * 0.3f)
+            {
+                attack.addedEffect = "self_destruct";
+                int selfDmg = Mathf.RoundToInt(enemy.hp * 0.5f);
+                enemy.hp = 0;
+                attack.selfDamage = selfDmg;
+            }
         }
 
         // 附加状态效果
@@ -304,6 +497,15 @@ public class EnemyAISystem : MonoBehaviour
             case "armor_plate": return $"{enemy.name}用坚硬的石甲挡下了部分伤害！";
             case "fog_blessing": return $"{enemy.name}被黑雾环绕，发出震耳咆哮！";
             case "nature_wrath": return $"{enemy.name}举起巨臂，重重砸下！";
+            case "corrosive_horn": return $"{enemy.name}低下腐蚀之角，直冲而来！";
+            case "swarm_attack": return $"{enemy.name}群起而攻，针刺如雨！";
+            case "blood_suck": return $"{enemy.name}吸血的颚紧紧咬住你！";
+            case "self_repair": return $"{enemy.name}的石缝中渗出黑雾，伤口在愈合！";
+            case "shadow_clone": return $"{enemy.name}的身影分裂，幽灵分身出现！";
+            case "ground_strike": return $"{enemy.name}的触手从地下猛然抽出！";
+            case "spore_cloud": return $"{enemy.name}释放出剧毒孢子云！";
+            case "vanish": return $"{enemy.name}化作黑影，消失于迷雾中！";
+            case "nightmare": return $"{enemy.name}的触须伸向你的额头，注入噩梦！";
             default: return $"{enemy.name}发起攻击！";
         }
     }
@@ -318,6 +520,18 @@ public class EnemyAISystem : MonoBehaviour
                 break;
             case "entangling_roots":
                 return new StatusEffect { type = EffectType.APReduction, amount = 2, duration = 1 };
+            case "corrosive_horn":
+                return new StatusEffect { type = EffectType.DefenseReduction, amount = 2, duration = 2 };
+            case "blood_suck":
+                return new StatusEffect { type = EffectType.Slow, amount = 1, duration = 1 };
+            case "spore_cloud":
+                if (UnityEngine.Random.value < 0.4f)
+                    return new StatusEffect { type = EffectType.Poison, damagePerTurn = 4, duration = 2 };
+                break;
+            case "nightmare":
+                if (UnityEngine.Random.value < 0.35f)
+                    return new StatusEffect { type = EffectType.Fear, amount = 50, duration = 2 };
+                break;
         }
         return null;
     }
@@ -338,12 +552,13 @@ public class EnemyAISystem : MonoBehaviour
             result.looted = true;
             result.food = UnityEngine.Random.Range(1, 4);
             result.wood = enemy.lootBonus.Length > 3 ? UnityEngine.Random.Range(enemy.lootBonus[2], enemy.lootBonus[3] + 1) : 0;
-            result.stone = enemy.typeId == "stone_lizard" ? UnityEngine.Random.Range(1, 3) : 0;
-            result.herb = enemy.typeId == "poison_spider" ? UnityEngine.Random.Range(1, 3) : 0;
+            result.stone = enemy.typeId == "stone_lizard" || enemy.typeId == "ruins_guardian" ? UnityEngine.Random.Range(1, 3) : 0;
+            result.herb = enemy.typeId == "poison_spider" || enemy.typeId == "swamp_leech" ? UnityEngine.Random.Range(1, 3) : 0;
             result.soulEssence = enemy.lootBonus.Length > 1 ? UnityEngine.Random.Range(enemy.lootBonus[0], enemy.lootBonus[1] + 1) : 0;
 
             result.dropDescription = $"{enemy.name}掉落了 {result.food} 食物";
             if (result.soulEssence > 0) result.dropDescription += $"，{result.soulEssence} 魂精华";
+            if (result.stone > 0 && enemy.typeId == "ruins_guardian") result.dropDescription += $"，{result.stone} 古代碎片";
         }
 
         return result;
@@ -388,7 +603,16 @@ public class EnemyAISystem : MonoBehaviour
         Tank,          // 黑雾兽：生命偷取
         Boss,          // 树妖/BOSS：高伤害
         Summoner,      // 沼泽蛙：召唤
-        Defender       // 岩石蜥：防御减伤
+        Defender,      // 岩石蜥：防御减伤
+        Corrupter,     // 腐化鹿：腐蚀防御
+        Swarm,         // 黑翼蚊：多段低伤
+        Leech,         // 沼泽蛭：吸血减速
+        Regen,         // 废墟守卫：自我修复
+        Phantom,       // 幽灵狼：影子分身
+        AoE,           // 黑雾触手：范围溅射
+        AoEPoison,     // 剧毒蘑菇：范围毒
+        Stealth,       // 暗影猎手：隐身暴击
+        Fearmonger     // 噩梦编织者：恐惧debuff
     }
 
     public enum EffectType
@@ -398,7 +622,9 @@ public class EnemyAISystem : MonoBehaviour
         APReduction,   // AP减少
         Slow,          // 减速
         Stun,          // 眩晕
-        Heal           // 治疗
+        Heal,          // 治疗
+        DefenseReduction, // 护甲腐蚀
+        Fear           // 恐惧
     }
 
     [System.Serializable]
@@ -414,7 +640,7 @@ public class EnemyAISystem : MonoBehaviour
         public string specialAbility;
         public int attackCount;
         public string specialDesc;
-        public int[] lootBonus;  // [min, max]
+        public int[] lootBonus;  // [min, max] 或 [min, max, min2, max2]
         public float dropChance;
     }
 
@@ -433,6 +659,8 @@ public class EnemyAISystem : MonoBehaviour
         public string specialDesc;
         public bool isBoss = false;
         public bool isElite = false;
+        public bool isInvisible = false;
+        public bool hasShield = false;
         public float dropChance = 0.4f;
         public int[] lootBonus = { 1, 3 };
         public System.Collections.Generic.List<StatusEffect> activeEffects;
@@ -458,8 +686,10 @@ public class EnemyAISystem : MonoBehaviour
     public class AttackResult
     {
         public int damage;
-        public string addedEffect; // "damage_boost" / "slow" / etc.
+        public string addedEffect; // "damage_boost" / "slow" / "fear" / "crit" / etc.
         public int lifeDrain;
+        public int splashDamage;
+        public int selfDamage;
     }
 
     public class LootResult
