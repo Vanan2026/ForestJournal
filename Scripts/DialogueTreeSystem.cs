@@ -2219,8 +2219,7 @@ public class DialogueTreeSystem : MonoBehaviour
                 if (canSelect)
                     GameManager.instance.AddLog($"  [{i + 1}] {choice.text}");
                 else
-                    GameManager.instance.AddLog($"  [{i + 1}] ???
-（需要 {choice.minTrust} 好感）");
+                    GameManager.instance.AddLog($"  [{i + 1}] {choice.text}（需要 {choice.minTrust} 好感）");
             }
         }
 
