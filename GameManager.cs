@@ -178,6 +178,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        // 触发任务采集通知
+        var quest = FindObjectOfType<QuestSystem>();
+        if (quest != null)
+            quest.OnResourceGathered(resourceType.ToLower(), amount + bonus);
+
         // 危险事件
         if (UnityEngine.Random.value < 0.15f)
         {
@@ -439,63 +444,20 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        gs = "victory";
-
-        // 根据 memories 数量决定结局
-        // memories >= 15: 融入森林（完美结局）
-        // memories >= 10: 驱散黑雾（好结局）
-        // memories >= 5:  带走秘密（普通结局）
-        // memories < 5:  永远留下（悲剧结局）
-        string endingType;
-        if (memories >= 15)
+        // 使用 EndingsSystem 判定结局
+        var endings = FindObjectOfType<EndingsSystem>();
+        if (endings != null)
         {
-            endingType = "结局一：融入森林";
-            AddLog("═══ 融入森林 ═══");
-            AddLog("你们与森林之心合一，成为了森林的一部分。");
-            AddLog("黑雾永远消散，这片土地重获新生。");
-            AddLog("—— 完美结局 ——");
-        }
-        else if (memories >= 10)
-        {
-            endingType = "结局二：驱散黑雾";
-            AddLog("═══ 驱散黑雾 ═══");
-            AddLog("借助森林之心的力量，你们驱散了黑雾。");
-            AddLog("森林恢复了往日的宁静。");
-            AddLog("—— 好结局 ——");
-        }
-        else if (memories >= 5)
-        {
-            endingType = "结局三：带走秘密";
-            AddLog("═══ 带走秘密 ═══");
-            AddLog("你们带着森林的秘密离开了这片土地。");
-            AddLog("黑雾依然存在，但你们知道了真相。");
-            AddLog("—— 普通结局 ——");
+            endings.TryTriggerEnding();
         }
         else
         {
-            endingType = "结局四：永远留下";
-            AddLog("═══ 永远留下 ═══");
-            AddLog("记忆太少，你们无法离开。");
-            AddLog("永远留在了这片被黑雾笼罩的森林中。");
-            AddLog("—— 悲剧结局 ——");
-        }
-
-        if (JournalSystem.instance != null)
-            JournalSystem.instance.OnForestHeartReached(endingType);
-    }
-                JournalSystem.instance.Record("death", "队伍全灭", "所有人都倒在了黑雾笼罩的森林中...");
-            return;
-        }
-
-        // 森林之心胜利
-        if (currentRegion == 4 && storyPhase >= 4)
-        {
+            // Fallback: 简单结局
             gs = "victory";
             AddLog("═══ 到达森林之心 ═══");
             AddLog("你们找到了传说中的森林之心！");
+            AddLog("在森林之心的光芒中，你们揭开了这片森林的秘密。");
             AddLog("—— 胜利！——");
-            if (JournalSystem.instance != null)
-                JournalSystem.instance.OnForestHeartReached("在森林之心的光芒中，你们揭开了这片森林的秘密。");
         }
     }
 
@@ -655,6 +617,11 @@ public class GameManager : MonoBehaviour
         var rel = FindObjectOfType<RelationshipSystem>();
         if (rel != null)
             rel.OnDayStart();
+
+        // 每日任务生成
+        var quest = FindObjectOfType<QuestSystem>();
+        if (quest != null)
+            quest.GenerateDailyQuests();
 
         // 每日威胁增长（每3天+1）
         var narrative = FindObjectOfType<DynamicNarrativeSystem>();

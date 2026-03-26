@@ -104,6 +104,11 @@ public class HandCardUI : MonoBehaviour
             if (JournalSystem.instance != null)
                 JournalSystem.instance.OnCombatVictory(currentEnemy.enemyName, 
                     currentEnemy.foodReward, currentEnemy.soulReward);
+
+            // 触发任务击杀通知
+            var quest = UnityEngine.FindObjectOfType<QuestSystem>();
+            if (quest != null)
+                quest.OnEnemyKilled(currentEnemy.typeId);
         }
 
         // 2秒后关闭战斗面板

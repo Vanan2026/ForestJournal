@@ -119,6 +119,20 @@ public class UIManager : MonoBehaviour
                 var sl = UnityEngine.FindObjectOfType<SaveLoadSystem>();
                 if (sl != null) sl.Load(0);
             });
+
+        // === 任务按钮 ===
+        var questPanel = CreatePanel(canvasObj.transform, "QuestPanel", 10, Screen.height / 2 - 100, 180, 60);
+        CreateText(questPanel.transform, "Title", "任务", 0, 25, 160, 25);
+        CreateButton(questPanel.transform, "BtnQuest", "📜 任务列表", -75, -5, 160, 40,
+            () => {
+                var qs = UnityEngine.FindObjectOfType<QuestSystem>();
+                if (qs != null) qs.ShowQuestLog();
+            });
+        CreateButton(questPanel.transform, "BtnEnding", "🏆 结局预览", -75, -45, 160, 35,
+            () => {
+                var es = UnityEngine.FindObjectOfType<EndingsSystem>();
+                if (es != null) es.ShowEndingPreview();
+            });
     }
 
     GameObject CreatePanel(Transform parent, string name, int x, int y, int w, int h)

@@ -505,6 +505,87 @@ public class VisualFXSystem : MonoBehaviour
     }
 
     // ====================
+    // 结局演出
+    // ====================
+
+    /// <summary>
+    /// 播放结局演出
+    /// </summary>
+    public void PlayEndingSequence(EndingsSystem.Ending ending, Action onComplete = null)
+    {
+        StartCoroutine(EndingSequenceRoutine(ending, onComplete));
+    }
+
+    System.Collections.IEnumerator EndingSequenceRoutine(EndingsSystem.Ending ending, Action onComplete)
+    {
+        Time.timeScale = 0;
+
+        // 1. 白色闪光
+        var flash = new GameObject("EndingFlash");
+        var sr = flash.AddComponent<SpriteRenderer>();
+        var tex = new Texture2D(1, 1);
+        tex.SetPixel(0, 0, Color.white);
+        tex.Apply();
+        sr.sprite = Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
+        sr.sortingOrder = 500;
+        sr.color = new Color(1, 1, 1, 0);
+
+        float t = 0;
+        while (t < 0.5f)
+        {
+            t += Time.deltaTime / 0.5f;
+            sr.color = new Color(1, 1, 1, t);
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(0.3f);
+
+        // 2. 淡出到黑色
+        while (t > 0)
+        {
+            t -= Time.deltaTime / 0.5f;
+            sr.color = new Color(1, 1, 1, t);
+            yield return null;
+        }
+
+        // 3. 粒子特效（记忆碎片飞舞）
+        for (int i = 0; i < 50; i++)
+        {
+            var obj = SpawnParticle("memory");
+            var psr = obj.GetComponent<SpriteRenderer>();
+            var ptex = CreateCircleTexture(UnityEngine.Random.Range(4, 12), new Color(0.8f, 0.6f, 1f, 1f));
+            psr.sprite = Sprite.Create(ptex, new Rect(0, 0, ptex.width, ptex.height), new Vector2(0.5f, 0.5f));
+            psr.sortingOrder = 400;
+
+            var life = obj.GetComponent<ParticleLife>();
+            life.lifetime = 3f;
+
+            float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
+            float radius = UnityEngine.Random.Range(100f, 300f);
+            Vector3 center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            Vector3 startPos = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
+
+            obj.transform.position = new Vector3(
+                startPos.x / Screen.width * 10 - 5,
+                startPos.y / Screen.height * 6 - 3, 0);
+
+            life.velocity = -new Vector3(Mathf.Cos(angle) * 2, Mathf.Sin(angle) * 2, 0);
+            life.gravity = 0;
+            life.fadeSpeed = 0.3f;
+        }
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        // 4. 淡入结局文字
+        Time.timeScale = 1;
+        onComplete?.Invoke();
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        UnityEngine.Object.Destroy(flash);
+    }
+
+    // ====================
     // 数据类
     // ====================
 
