@@ -306,6 +306,250 @@ public static class ExtendedQuestLibrary
                     new QuestChoice{ id="feed_c", text="喂食物", reward=new Reward{ memories=3 }, cost=new Cost{ food=3 } }
                 }
             },
+            // ===== 新增随机事件 21-50 =====
+            new QuestData { id="event_fox", name="迷路的小狐狸", type=QuestType.Event, difficulty=1,
+                description="一只小狐狸跟着你走",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="adopt", text="收留它", reward=new Reward{ memories=2, food=3 } },
+                    new QuestChoice{ id="feed_fox", text="喂食后放走", reward=new Reward{ memories=3, soulEssence=1 } },
+                    new QuestChoice{ id="shun_fox", text="驱赶它", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_beehive", name="倒塌的树", type=QuestType.Event, difficulty=2,
+                description="倒下的树中露出蜂巢",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="harvest_honey", text="采集蜂蜜", reward=new Reward{ food=12, memories=2 }, requirement=new Requirement{ minDay=3 } },
+                    new QuestChoice{ id="risk_honey", text="冒险采集", reward=new Reward{ food=20, memories=3 }, requirement=new Requirement{ minDay=5 } },
+                    new QuestChoice{ id="leave_honey", text="不碰", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_well", name="古老的井", type=QuestType.Event, difficulty=1,
+                description="古井旁有投币孔",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="toss_coin", text="投币占卜", reward=new Reward{ memories=3 }, cost=new Cost{ food=1 } },
+                    new QuestChoice{ id="look_well", text="探头看", reward=new Reward{ memories=1 } },
+                    new QuestChoice{ id="ignore_well", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_baby", name="被遗弃的婴儿", type=QuestType.Event, difficulty=2,
+                description="灌木丛中传来婴儿哭声",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="raise_baby", text="抚养", reward=new Reward{ memories=4, soulEssence=2 }, requirement=new Requirement{ minDay=7 } },
+                    new QuestChoice{ id="find_npc", text="交给NPC", reward=new Reward{ memories=3 } },
+                    new QuestChoice{ id="leave_baby", text="留在原地", reward=new Reward{ memories=-1 } }
+                }
+            },
+            new QuestData { id="event_rain_song", name="暴雨中的歌声", type=QuestType.Event, difficulty=2,
+                description="雨夜传来凄美的歌声",
+                requirement=new Requirement{ minDay=5 },
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="listen_song", text="倾听歌声", reward=new Reward{ memories=4, soulEssence=2 } },
+                    new QuestChoice{ id="follow_song", text="循声寻找", reward=new Reward{ memories=2, food=5 }, requirement=new Requirement{ minDay=10 } },
+                    new QuestChoice{ id="leave_song", text="冒雨离开", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_blood", name="地上的血迹", type=QuestType.Event, difficulty=2,
+                description="草叶上留有新鲜血迹",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="track_blood", text="跟踪血迹", reward=new Reward{ memories=3, soulEssence=1 } },
+                    new QuestChoice{ id="cautious_blood", text="谨慎侦察", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_blood", text="绕路走", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_stone", name="奇怪的石碑", type=QuestType.Event, difficulty=3,
+                description="石碑上刻着无法辨认的文字",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="touch_stone", text="触碰石碑", reward=new Reward{ memories=5 }, requirement=new Requirement{ minDay=7 } },
+                    new QuestChoice{ id="study_stone", text="仔细研究", reward=new Reward{ memories=3, soulEssence=1 } },
+                    new QuestChoice{ id="avoid_stone", text="不碰", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_birds", name="鸟群惊飞", type=QuestType.Event, difficulty=1,
+                description="树梢的鸟群突然惊飞",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="investigate_birds", text="调查原因", reward=new Reward{ memories=2, food=5 } },
+                    new QuestChoice{ id="hide_birds", text="隐蔽观察", reward=new Reward{ memories=1 } },
+                    new QuestChoice{ id="pass_birds", text="继续前进", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_firefly", name="萤火虫群", type=QuestType.Event, difficulty=1,
+                description="点点萤光在林间飘动",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="follow_firefly", text="跟随萤火虫", reward=new Reward{ memories=3, herb=5 } },
+                    new QuestChoice{ id="catch_firefly", text="捕捉", reward=new Reward{ memories=1, soulEssence=1 } },
+                    new QuestChoice{ id="watch_firefly", text="静静观赏", reward=new Reward{ memories=2 } }
+                }
+            },
+            new QuestData { id="event_rainbow", name="彩虹", type=QuestType.Event, difficulty=1,
+                description="雨后彩虹横跨森林",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="chase_rainbow", text="追寻彩虹尽头", reward=new Reward{ memories=4, food=8 }, requirement=new Requirement{ minDay=5 } },
+                    new QuestChoice{ id="photo_rainbow", text="拍照留念", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_rainbow", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_signpost", name="倒下的路牌", type=QuestType.Event, difficulty=1,
+                description="路牌倒伏在路边",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="repair_sign", text="修复路牌", reward=new Reward{ memories=2, wood=5 } },
+                    new QuestChoice{ id="read_sign", text="辨认方向", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="leave_sign", text="不碰", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_picnic", name="野餐篮", type=QuestType.Event, difficulty=1,
+                description="草丛中有一个被遗忘的野餐篮",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="open_picnic", text="打开查看", reward=new Reward{ food=10, memories=2 } },
+                    new QuestChoice{ id="take_photo", text="拿走照片", reward=new Reward{ memories=3 } },
+                    new QuestChoice{ id="ignore_picnic", text="不碰", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_cricket", name="唱歌的蟋蟀", type=QuestType.Event, difficulty=2,
+                description="草丛中蟋蟀鸣叫不止",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="listen_cricket", text="倾听蟋蟀", reward=new Reward{ memories=3, soulEssence=1 } },
+                    new QuestChoice{ id="catch_cricket", text="捕捉研究", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="disturb_cricket", text="打扰它", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_vine_door", name="被藤蔓缠绕的门", type=QuestType.Event, difficulty=2,
+                description="藤蔓遮蔽着一扇旧木门",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="clear_vine", text="清理藤蔓进入", reward=new Reward{ memories=4, food=8 }, requirement=new Requirement{ minDay=5 } },
+                    new QuestChoice{ id="peer_door", text="从门缝窥视", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_door", text="不进去", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_footprint", name="奇怪的脚印", type=QuestType.Event, difficulty=2,
+                description="地上有不明生物的脚印",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="follow_foot", text="跟随脚印", reward=new Reward{ memories=3, soulEssence=2 } },
+                    new QuestChoice{ id="study_foot", text="研究脚印", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="avoid_foot", text="绕开走", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_branch", name="落水的树枝", type=QuestType.Event, difficulty=1,
+                description="溪流中卡着一根大树枝",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="fish_branch", text="打捞树枝", reward=new Reward{ wood=8, memories=1 } },
+                    new QuestChoice{ id="search_branch", text="检查树枝", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_branch", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_campfire", name="远处火光", type=QuestType.Event, difficulty=2,
+                description="密林深处有火光闪烁",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="approach_fire", text="靠近查看", reward=new Reward{ memories=3, food=5 } },
+                    new QuestChoice{ id="observe_fire", text="远距离观察", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="avoid_fire", text="避开火光", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_map_piece", name="遗失的地图碎片", type=QuestType.Event, difficulty=1,
+                description="泥水中泡着一张残破地图",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="collect_map", text="收集碎片", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="study_map", text="辨认地点", reward=new Reward{ memories=1 } },
+                    new QuestChoice{ id="ignore_map_piece", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_fountain", name="古老的硬币", type=QuestType.Event, difficulty=1,
+                description="发现一座干涸的喷泉",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="throw_coin", text="投币许愿", reward=new Reward{ memories=2, soulEssence=1 }, cost=new Cost{ food=1 } },
+                    new QuestChoice{ id="examine_fountain", text="调查喷泉", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_fountain", text="离开", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_carving", name="树上的刻痕", type=QuestType.Event, difficulty=1,
+                description="树干上有人留下的刻痕",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="read_carving", text="辨认信息", reward=new Reward{ memories=3 } },
+                    new QuestChoice{ id="add_carving", text="添加自己的话", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_carving", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_storm_rainbow", name="暴风雨后的彩虹", type=QuestType.Event, difficulty=2,
+                description="暴风雨过后，天空出现双彩虹",
+                requirement=new Requirement{ minDay=7 },
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="chase_double", text="追寻双彩虹", reward=new Reward{ memories=5, food=10 } },
+                    new QuestChoice{ id="rest_rainbow", text="休息欣赏", reward=new Reward{ memories=3 } },
+                    new QuestChoice{ id="ignore_storm", text="继续旅程", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_wreath", name="枯萎的花圈", type=QuestType.Event, difficulty=2,
+                description="树根旁有一个枯萎的花圈",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="investigate_wreath", text="调查花圈", reward=new Reward{ memories=4 }, requirement=new Requirement{ minDay=5 } },
+                    new QuestChoice{ id="remember_wreath", text="默哀后离开", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="ignore_wreath", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_spiderweb", name="蜘蛛网拦路", type=QuestType.Event, difficulty=1,
+                description="巨大的蜘蛛网横在路中",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="burn_web", text="烧掉蛛网", reward=new Reward{ memories=2, wood=3 } },
+                    new QuestChoice{ id="go_around", text="绕路走", reward=new Reward{ memories=1 } },
+                    new QuestChoice{ id="collect_web", text="收集蛛丝", reward=new Reward{ memories=2, herb=4 } }
+                }
+            },
+            new QuestData { id="event_ufo", name="奇怪的脚印", type=QuestType.Event, difficulty=3,
+                description="地上的脚印呈完美半圆形……是外星生物？",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="follow_ufo", text="跟踪脚印", reward=new Reward{ memories=5, soulEssence=3 }, requirement=new Requirement{ minDay=10 } },
+                    new QuestChoice{ id="photograph_ufo", text="拍照记录", reward=new Reward{ memories=3 } },
+                    new QuestChoice{ id="forget_ufo", text="假装没看见", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_deer", name="鹿群迁徙", type=QuestType.Event, difficulty=1,
+                description="一群鹿正在穿越森林",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="follow_deer", text="跟随鹿群", reward=new Reward{ memories=3, food=8 } },
+                    new QuestChoice{ id="hunt_deer", text="猎取一只", reward=new Reward{ food=15, memories=1 }, requirement=new Requirement{ minDay=5 } },
+                    new QuestChoice{ id="watch_deer", text="静静观看", reward=new Reward{ memories=2 } }
+                }
+            },
+            new QuestData { id="event_echo", name="回声", type=QuestType.Event, difficulty=1,
+                description="山谷中传来你自己的回声",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="yell_echo", text="大声呼喊", reward=new Reward{ memories=2 } },
+                    new QuestChoice{ id="whisper_echo", text="轻声呼唤", reward=new Reward{ memories=3, soulEssence=1 } },
+                    new QuestChoice{ id="ignore_echo", text="安静离开", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_backpack", name="遗失的背包", type=QuestType.Event, difficulty=2,
+                description="树杈上挂着一个被丢弃的背包",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="open_backpack", text="打开背包", reward=new Reward{ food=10, memories=2 } },
+                    new QuestChoice{ id="search_backpack", text="仔细搜查", reward=new Reward{ memories=3, herb=5 } },
+                    new QuestChoice{ id="leave_backpack", text="不动", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_lightning", name="被雷劈的树", type=QuestType.Event, difficulty=2,
+                description="大树枝被雷击中正在燃烧",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="collect_charcoal", text="收集木炭", reward=new Reward{ wood=15, memories=2 } },
+                    new QuestChoice{ id="extinguish_tree", text="扑灭火焰", reward=new Reward{ memories=3 }, cost=new Cost{ food=3 } },
+                    new QuestChoice{ id="watch_burn", text="观察燃烧", reward=new Reward{ memories=1 } }
+                }
+            },
+            new QuestData { id="event_butterfly", name="蝴蝶落在肩上", type=QuestType.Event, difficulty=1,
+                description="一只美丽蝴蝶轻轻落在你肩头",
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="cherish_butterfly", text="珍视这一刻", reward=new Reward{ memories=3 } },
+                    new QuestChoice{ id="release_butterfly", text="放飞蝴蝶", reward=new Reward{ memories=2, soulEssence=1 } },
+                    new QuestChoice{ id="brush_butterfly", text="轻轻拂去", reward=new Reward{ memories=0 } }
+                }
+            },
+            new QuestData { id="event_bell", name="远处钟声", type=QuestType.Event, difficulty=3,
+                description="风中隐约传来古老的钟声",
+                requirement=new Requirement{ minDay=10 },
+                choices=new List<QuestChoice>{
+                    new QuestChoice{ id="find_bell", text="循声寻找", reward=new Reward{ memories=6, soulEssence=3 } },
+                    new QuestChoice{ id="listen_bell", text="静心聆听", reward=new Reward{ memories=4, soulEssence=2 } },
+                    new QuestChoice{ id="ignore_bell", text="不理会", reward=new Reward{ memories=0 } }
+                }
+            },
             // ===== 连续任务 =====
             new QuestData { id="chain_ashes_1", name="灰烬的踪迹（前篇）", type=QuestType.Chain, difficulty=3,
                 description="追查黑雾中的神秘身影",
