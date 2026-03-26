@@ -83,6 +83,17 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // 确保有主摄像机
+        if (Camera.main == null)
+        {
+            var camObj = new GameObject("Main Camera");
+            var cam = camObj.AddComponent<Camera>();
+            cam.backgroundColor = new Color(0.15f, 0.18f, 0.12f); // 深绿色背景
+            camObj.AddComponent<AudioListener>(); // 需要一个 AudioListener
+            camObj.tag = "MainCamera";
+        }
+
         InitializeRegions();
         InitializeStartingSquad();
     }
