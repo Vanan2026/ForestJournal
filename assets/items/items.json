@@ -1,0 +1,157 @@
+{
+  "food_berry": {
+    "name": "浆果",
+    "type": "consumable",
+    "stackable": true
+  },
+  "food_meat": {
+    "name": "烤肉",
+    "type": "consumable",
+    "stackable": true
+  },
+  "food_fish": {
+    "name": "烤鱼",
+    "type": "consumable",
+    "stackable": true
+  },
+  "food_fruit": {
+    "name": "水果",
+    "type": "consumable",
+    "stackable": true
+  },
+  "potion_health": {
+    "name": "生命药水",
+    "type": "consumable",
+    "stackable": true
+  },
+  "potion_antidote": {
+    "name": "解毒药",
+    "type": "consumable",
+    "stackable": true
+  },
+  "potion_energy": {
+    "name": "精力药水",
+    "type": "consumable",
+    "stackable": true
+  },
+  "mat_wood": {
+    "name": "木材",
+    "type": "material",
+    "stackable": true
+  },
+  "mat_stone": {
+    "name": "石头",
+    "type": "material",
+    "stackable": true
+  },
+  "mat_herb": {
+    "name": "草药",
+    "type": "material",
+    "stackable": true
+  },
+  "mat_fiber": {
+    "name": "纤维",
+    "type": "material",
+    "stackable": true
+  },
+  "mat_ore": {
+    "name": "矿石",
+    "type": "material",
+    "stackable": true
+  },
+  "mat_bone": {
+    "name": "兽骨",
+    "type": "material",
+    "stackable": true
+  },
+  "mat_soul": {
+    "name": "魂精华",
+    "type": "material",
+    "stackable": true
+  },
+  "weapon_staff": {
+    "name": "魔杖",
+    "type": "weapon",
+    "stackable": false
+  },
+  "weapon_bow": {
+    "name": "弓",
+    "type": "weapon",
+    "stackable": false
+  },
+  "weapon_sword": {
+    "name": "剑",
+    "type": "weapon",
+    "stackable": false
+  },
+  "weapon_dagger": {
+    "name": "匕首",
+    "type": "weapon",
+    "stackable": false
+  },
+  "weapon_axe": {
+    "name": "斧",
+    "type": "weapon",
+    "stackable": false
+  },
+  "armor_cloth": {
+    "name": "布甲",
+    "type": "armor",
+    "stackable": false
+  },
+  "armor_leather": {
+    "name": "皮甲",
+    "type": "armor",
+    "stackable": false
+  },
+  "armor_mail": {
+    "name": "锁甲",
+    "type": "armor",
+    "stackable": false
+  },
+  "armor_plate": {
+    "name": "板甲",
+    "type": "armor",
+    "stackable": false
+  },
+  "special_map": {
+    "name": "地图",
+    "type": "special",
+    "stackable": false
+  },
+  "special_compass": {
+    "name": "罗盘",
+    "type": "special",
+    "stackable": false
+  },
+  "special_torch": {
+    "name": "火把",
+    "type": "special",
+    "stackable": false
+  },
+  "special_rope": {
+    "name": "绳索",
+    "type": "special",
+    "stackable": false
+  },
+  "special_key": {
+    "name": "钥匙",
+    "type": "special",
+    "stackable": false
+  },
+  "special_diary": {
+    "name": "日记",
+    "type": "special",
+    "stackable": false
+  },
+  "special_trap": {
+    "name": "陷阱",
+    "type": "special",
+    "stackable": false
+  },
+  "special_bait": {
+    "name": "诱饵",
+    "type": "special",
+    "stackable": false
+  }
+}

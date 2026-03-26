@@ -1,0 +1,28 @@
+{
+  "battle": [
+    "attack",
+    "hit",
+    "death",
+    "victory"
+  ],
+  "ui": [
+    "click",
+    "success",
+    "failure",
+    "levelup"
+  ],
+  "interaction": [
+    "collect",
+    "footstep",
+    "open",
+    "heal",
+    "splash"
+  ],
+  "ambient": [
+    "rain",
+    "wind",
+    "thunder",
+    "forest",
+    "night"
+  ]
+}
