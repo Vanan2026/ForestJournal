@@ -120,7 +120,7 @@ namespace ForestJournal
         public int baseCapacity = 20;
         public int maxCapacity = 40;
 
-        public Inventory(string ownerId, int baseCapacity = 20, int maxCapacity = 40)
+        public InventorySystem(string ownerId, int baseCapacity = 20, int maxCapacity = 40)
         {
             this.ownerId = ownerId;
             this.baseCapacity = baseCapacity;
@@ -411,22 +411,6 @@ namespace ForestJournal
         }
 
         // 移除物品
-        public bool RemoveItem(string instanceId, int amount = 1)
-        {
-            foreach (var slot in slots)
-            {
-                if (slot.HasItem && slot.item.instanceId == instanceId)
-                {
-                    slot.item.count -= amount;
-                    if (slot.item.count <= 0)
-                    {
-                        slot.item = null;
-                    }
-                    return true;
-                }
-            }
-            return false;
-        }
 
         // 整理
         public void Organize()
@@ -457,18 +441,6 @@ namespace ForestJournal
             }
         }
 
-        public int GetItemCount(string itemId)
-        {
-            int count = 0;
-            foreach (var slot in slots)
-            {
-                if (slot.HasItem && slot.item.data.id == itemId)
-                {
-                    count += slot.item.count;
-                }
-            }
-            return count;
-        }
 
         public bool HasItem(string itemId, int amount = 1)
         {

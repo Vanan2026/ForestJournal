@@ -13,7 +13,6 @@ public class SaveLoadSystem : MonoBehaviour
 {
     public static SaveLoadSystem instance { get; private set; }
 
-    [Header("存档槽位")]
     public const int MAX_SLOTS = 3;
     public SaveSlot[] saveSlots = new SaveSlot[MAX_SLOTS];
     public int lastSaveSlot = -1;

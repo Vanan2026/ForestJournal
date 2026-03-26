@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
@@ -462,31 +463,6 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 触发四种结局之一（到达森林之心后，Day 21+）
     /// </summary>
-    void TriggerEnding()
-    {
-        if (currentDay < 21)
-        {
-            AddLog("森林之心尚未完全觉醒...");
-            AddLog("需要等待第21天，黑雾最浓之时...");
-            return;
-        }
-
-        // 使用 EndingsSystem 判定结局
-        var endings = FindObjectOfType<EndingsSystem>();
-        if (endings != null)
-        {
-            endings.TryTriggerEnding();
-        }
-        else
-        {
-            // Fallback: 简单结局
-            gs = "victory";
-            AddLog("═══ 到达森林之心 ═══");
-            AddLog("你们找到了传说中的森林之心！");
-            AddLog("在森林之心的光芒中，你们揭开了这片森林的秘密。");
-            AddLog("—— 胜利！——");
-        }
-    }
 
     /// <summary>
     /// 使用物品

@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
-using static QuestSystem;
+using QuestData = QuestSystem.Quest;
+using Objective = QuestSystem.QuestObjective;
+using Reward = QuestSystem.QuestReward;
 
 /// <summary>
 /// 扩展任务库 - 70+ 任务
