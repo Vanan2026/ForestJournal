@@ -105,6 +105,20 @@ public class UIManager : MonoBehaviour
                 var cs = UnityEngine.FindObjectOfType<CraftingSystem>();
                 if (cs != null) cs.Craft("bone_blade");
             });
+
+        // === 存档/读档按钮 ===
+        var savePanel = CreatePanel(canvasObj.transform, "SavePanel", Screen.width / 2 - 100, 10, 200, 70);
+        CreateText(savePanel.transform, "Title", "存档", 0, 30, 180, 25);
+        CreateButton(savePanel.transform, "BtnSave", "💾 保存", -75, 0, 80, 35,
+            () => {
+                var sl = UnityEngine.FindObjectOfType<SaveLoadSystem>();
+                if (sl != null) sl.Save(0);
+            });
+        CreateButton(savePanel.transform, "BtnLoad", "📂 读档", 0, 0, 80, 35,
+            () => {
+                var sl = UnityEngine.FindObjectOfType<SaveLoadSystem>();
+                if (sl != null) sl.Load(0);
+            });
     }
 
     GameObject CreatePanel(Transform parent, string name, int x, int y, int w, int h)

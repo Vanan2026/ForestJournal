@@ -548,18 +548,29 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 使用 NPCRecruitmentSystem 处理遭遇
+        // 使用对话树系统触发对话
+        var dialogueSystem = FindObjectOfType<DialogueTreeSystem>();
         var npcSystem = FindObjectOfType<NPCRecruitmentSystem>();
         if (npcSystem != null)
         {
+            // 先随机遭遇一个NPC
             npcSystem.TriggerNPCEncounter();
         }
-        else
+
+        // 如果对话树有该NPC的对话，触发对话
+        if (dialogueSystem != null && npcSystem != null)
         {
-            // Fallback：简单NPC遭遇
-            AddLog("在森林中探索...");
+            var available = npcSystem.GetAvailableNPCs(currentDay, memories);
+            if (available.Count > 0)
+            {
+                var npc = available[UnityEngine.Random.Range(0, available.Count)];
+                dialogueSystem.StartDialogue(npc.npcId);
+                return;
+            }
         }
 
+        // Fallback：简单探索
+        AddLog("在森林中探索...");
         UpdateAllUI();
     }
 
@@ -639,6 +650,11 @@ public class GameManager : MonoBehaviour
         // 每日技能检查
         if (skills != null)
             skills.CheckDailySkillUnlocks(currentDay, squad);
+
+        // NPC 每日行为
+        var rel = FindObjectOfType<RelationshipSystem>();
+        if (rel != null)
+            rel.OnDayStart();
 
         // 每日威胁增长（每3天+1）
         var narrative = FindObjectOfType<DynamicNarrativeSystem>();
