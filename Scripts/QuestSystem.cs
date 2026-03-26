@@ -36,290 +36,34 @@ public class QuestSystem : MonoBehaviour
 
     void InitializeQuestPool()
     {
-        questPool = new List<Quest>
+        // 使用扩展任务库
+        var extended = ExtendedQuestLibrary.GenerateAllQuests();
+        foreach (var q in extended)
         {
-            // ========== 悬赏任务 ==========
-            new Quest {
-                id = "bounty_wolf",
-                name = "狼群威胁",
-                description = "黑雾森林边缘出现了狼群，伤了三名旅人。消灭5只阴影狼。",
-                type = QuestType.Bounty,
-                difficulty = 1,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.KillEnemy, targetId = "shadow_wolf", count = 5, current = 0 }
-                },
-                rewards = new QuestReward { food = 10, soulEssence = 1, memories = 1 }
-            },
-            new Quest {
-                id = "bounty_spider",
-                name = "毒蜘蛛巢穴",
-                description = "沼泽地带的毒蜘蛛开始向外扩散，在沼泽击杀4只毒蜘蛛。",
-                type = QuestType.Bounty,
-                difficulty = 2,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.KillEnemy, targetId = "poison_spider", count = 4, current = 0 }
-                },
-                rewards = new QuestReward { herb = 8, memories = 1 }
-            },
-            new Quest {
-                id = "bounty_artifact",
-                name = "遗失的宝物",
-                description = "有人说在古老废墟里埋着一个古老的遗物，找回来。",
-                type = QuestType.Bounty,
-                difficulty = 2,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.ExploreRegion, targetId = "ancient_ruins", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { food = 15, bone = 5, memories = 2 }
-            },
-            new Quest {
-                id = "bounty_fog_beast",
-                name = "黑雾兽清剿",
-                description = "黑雾前沿出现了一头巨大的黑雾兽，据说杀死它能获得大量魂精华。",
-                type = QuestType.Bounty,
-                difficulty = 4,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.KillEnemy, targetId = "darkbeast", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { soulEssence = 5, memories = 3 }
-            },
-            new Quest {
-                id = "bounty_fog_lord",
-                name = "雾主讨伐",
-                description = "黑雾前沿深处出现了一个自称'雾主'的存在，带领队伍击败它。",
-                type = QuestType.Bounty,
-                difficulty = 5,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.KillEnemy, targetId = "fog_lord", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { soulEssence = 10, memories = 5 }
-            },
-
-            // ========== 委托任务 ==========
-            new Quest {
-                id = "errand_food",
-                name = "粮食危机",
-                description = "队伍里的食物不多了，采集15个食物。",
-                type = QuestType.Errand,
-                difficulty = 1,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.GatherResource, targetId = "food", count = 15, current = 0 }
-                },
-                rewards = new QuestReward { memories = 1 }
-            },
-            new Quest {
-                id = "errand_herb",
-                name = "草药补给",
-                description = "玛莎需要草药来制作药品，带10个草药给她。",
-                type = QuestType.Errand,
-                difficulty = 1,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.GatherResource, targetId = "herb", count = 10, current = 0 }
-                },
-                rewards = new QuestReward { herb = 5, memories = 1 }
-            },
-            new Quest {
-                id = "errand_camp",
-                name = "修建营地",
-                description = "需要5个木材来修建新的营地。",
-                type = QuestType.Errand,
-                difficulty = 1,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.GatherResource, targetId = "wood", count = 5, current = 0 }
-                },
-                rewards = new QuestReward { wood = 5, memories = 1 }
-            },
-            new Quest {
-                id = "errand_bandage",
-                name = "绷带订单",
-                description = "有个商人需要绷带，用纤维和草药制作8个绷带。",
-                type = QuestType.Errand,
-                difficulty = 2,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.CraftItem, targetId = "bandage", count = 8, current = 0 }
-                },
-                rewards = new QuestReward { food = 12, memories = 1 }
-            },
-            new Quest {
-                id = "errand_explorer",
-                name = "区域探索",
-                description = "探索幽暗山谷，寻找新的道路。",
-                type = QuestType.Errand,
-                difficulty = 2,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.ExploreRegion, targetId = "dark_valley", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { memories = 2, herb = 5 }
-            },
-
-            // ========== 随机事件任务 ==========
-            new Quest {
-                id = "event_lost_child",
-                name = "迷路的孩子",
-                description = "在路边发现了一个哭泣的孩子，帮他找到回家的路。",
-                type = QuestType.Event,
-                difficulty = 1,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.Choice, targetId = "help_child", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { memories = 2 },
-                choices = new List<QuestChoice> {
-                    new QuestChoice { id = "help_find", text = "帮助孩子找家", reward = new QuestReward { memories = 2 } },
-                    new QuestChoice { id = "ignore_child", text = "假装没看见", reward = new QuestReward { memories = -1 } }
-                }
-            },
-            new Quest {
-                id = "event_stranger",
-                name = "神秘旅人",
-                description = "一个神秘的旅人想用物品交换情报，你会怎么做？",
-                type = QuestType.Event,
-                difficulty = 1,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.Choice, targetId = "stranger_deal", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { memories = 0 },
-                choices = new List<QuestChoice> {
-                    new QuestChoice { id = "trade_info", text = "用3食物换取情报", reward = new QuestReward { memories = 3 }, cost = new QuestCost { food = 3 } },
-                    new QuestChoice { id = "share_free", text = "免费分享情报", reward = new QuestReward { memories = 2 }, trustNPC = "stranger", trustChange = 10 },
-                    new QuestChoice { id = "refuse_stranger", text = "拒绝交易", reward = new QuestReward { memories = 0 } }
-                }
-            },
-            new Quest {
-                id = "event_injured_soldier",
-                name = "受伤的士兵",
-                description = "路边发现一名受伤的士兵，他说被黑雾兽袭击了。",
-                type = QuestType.Event,
-                difficulty = 2,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.Choice, targetId = "soldier", count = 1, current = 0 }
-                },
-                choices = new List<QuestChoice> {
-                    new QuestChoice { id = "heal_soldier", text = "用草药治疗他", reward = new QuestReward { memories = 2, soulEssence = 1 }, cost = new QuestCost { herb = 5 } },
-                    new QuestChoice { id = "abandon_soldier", text = "不关我的事", reward = new QuestReward { memories = -1 } }
-                }
-            },
-            new Quest {
-                id = "event_abandoned_village",
-                name = "废弃村落",
-                description = "探索时发现了一个废弃的村落，里面似乎还有物资。",
-                type = QuestType.Event,
-                difficulty = 2,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.Choice, targetId = "village", count = 1, current = 0 }
-                },
-                choices = new List<QuestChoice> {
-                    new QuestChoice { id = "search_village", text = "仔细搜索村落", reward = new QuestReward { food = 8, wood = 5, stone = 3 } },
-                    new QuestChoice { id = "quick_loot", text = "快速搜刮", reward = new QuestReward { food = 3, wood = 2 } },
-                    new QuestChoice { id = "ignore_village", text = "不进去，太危险", reward = new QuestReward { memories = 1 } }
-                }
-            },
-            new Quest {
-                id = "event_elder_wisdom",
-                name = "老者的智慧",
-                description = "森林深处住着一位老者，据说知道黑雾的秘密。",
-                type = QuestType.Event,
-                difficulty = 3,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.Choice, targetId = "elder", count = 1, current = 0 }
-                },
-                choices = new List<QuestChoice> {
-                    new QuestChoice { id = "visit_elder", text = "拜访老者", reward = new QuestReward { memories = 5, soulEssence = 2 }, requirement = new QuestRequirement { minDay = 10 } },
-                    new QuestChoice { id = "bring_gift", text = "带礼物拜访（消耗5食物）", reward = new QuestReward { memories = 3 }, cost = new QuestCost { food = 5 }, requirement = new QuestRequirement { minDay = 5 } },
-                    new QuestChoice { id = "ignore_elder", text = "不感兴趣", reward = new QuestReward { memories = 0 } }
-                }
-            },
-
-            // ========== 连续任务（多步骤）==========
-            new Quest {
-                id = "chain_ashes_intro",
-                name = "灰烬的踪迹（前篇）",
-                description = "有人说在黑雾中看到了一个神秘的身影，追查下去。",
-                type = QuestType.Chain,
-                difficulty = 3,
-                chainNextQuestId = "chain_ashes_truth",
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.ExploreRegion, targetId = "fog_front", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { memories = 2 }
-            },
-            new Quest {
-                id = "chain_ashes_truth",
-                name = "灰烬的踪迹（后篇）",
-                description = "你找到了那个神秘人——灰烬。他似乎在寻找什么。",
-                type = QuestType.Chain,
-                difficulty = 3,
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.Choice, targetId = "ashes_choice", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { memories = 5, soulEssence = 3 }
-            },
-            new Quest {
-                id = "chain_forest_heart_1",
-                name = "森林之心（序章）",
-                description = "收集5个魂精华，献给森林之心。",
-                type = QuestType.Chain,
-                difficulty = 4,
-                chainNextQuestId = "chain_forest_heart_2",
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.CollectResource, targetId = "soulEssence", count = 5, current = 0 }
-                },
-                rewards = new QuestReward { memories = 5 }
-            },
-            new Quest {
-                id = "chain_forest_heart_2",
-                name = "森林之心（觉醒）",
-                description = "前往森林深处，与森林之心产生共鸣。",
-                type = QuestType.Chain,
-                difficulty = 5,
-                chainNextQuestId = "chain_forest_heart_ending",
-                objectives = new List<QuestObjective> {
-                    new QuestObjective { type = ObjectiveType.ReachLocation, targetId = "forest_heart", count = 1, current = 0 }
-                },
-                rewards = new QuestReward { memories = 10 }
-            }
-        };
-    }
-
-    // ====================
-    // 每日任务生成
-    // ====================
-
-    /// <summary>
-    /// 每日生成新任务（安营时调用）
-    /// </summary>
-    public void GenerateDailyQuests()
-    {
-        questsGeneratedToday = 0;
-
-        // 先检查是否有连续任务未完成
-        foreach (var q in activeQuests)
-        {
-            if (q.type == QuestType.Chain && !string.IsNullOrEmpty(q.chainNextQuestId))
-            {
-                // 自动接受连续任务的下一步
-                AcceptChainQuest(q.chainNextQuestId);
-            }
-        }
-
-        // 生成悬赏和委托
-        int bountyCount = UnityEngine.Random.Range(1, 3);
-        int errandCount = UnityEngine.Random.Range(1, 2);
-
-        GenerateQuestsOfType(QuestType.Bounty, bountyCount);
-        GenerateQuestsOfType(QuestType.Errand, errandCount);
-
-        // 30%概率触发随机事件
-        if (UnityEngine.Random.value < 0.3f)
-        {
-            GenerateQuestsOfType(QuestType.Event, 1);
-        }
-
-        if (activeQuests.Count > 0)
-        {
-            string questList = "";
-            foreach (var q in activeQuests)
-                questList += $"[{q.name}] ";
-            GameManager.instance?.AddLog($"═══ 今日任务 ═══ {questList}");
+            questPool.Add(new Quest {
+                id = q.id,
+                name = q.name,
+                description = q.description,
+                type = q.type,
+                difficulty = q.difficulty,
+                objectives = q.objectives.ConvertAll(o => new QuestObjective {
+                    type = o.type,
+                    targetId = o.targetId,
+                    count = o.count,
+                    current = 0
+                }),
+                rewards = q.rewards,
+                choices = q.choices?.ConvertAll(c => new QuestChoice {
+                    id = c.id,
+                    text = c.text,
+                    reward = c.reward,
+                    cost = c.cost,
+                    trustNPC = c.trustNPC,
+                    trustChange = c.trustChange,
+                    requirement = c.requirement
+                }),
+                chainNextQuestId = q.chainNextQuestId
+            });
         }
     }
 
