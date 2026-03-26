@@ -155,6 +155,19 @@ public class UIManager : MonoBehaviour
                         audio.PlayBGM("forest");
                 }
             });
+
+        // === 教程按钮 ===
+        CreateButton(canvasObj.transform, "BtnTutorial", "📖 教程", Screen.width / 2 - 40, Screen.height - 60, 80, 30,
+            () => {
+                var ts = UnityEngine.FindObjectOfType<TutorialSystem>();
+                if (ts != null)
+                {
+                    if (!ts.hasCompletedBasicTutorial)
+                        ts.StartTutorial(TutorialSystem.TutorialPhase.Basic);
+                    else
+                        GameManager.instance?.AddLog("基础教程已完成，输入「教程」查看帮助。");
+                }
+            });
     }
 
     GameObject CreatePanel(Transform parent, string name, int x, int y, int w, int h)

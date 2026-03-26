@@ -95,6 +95,12 @@ public class HandCardUI : MonoBehaviour
         AddCombatLog($"🎉 胜利！击败了 {currentEnemy.enemyName}！");
         FindObjectOfType<AudioSystem>()?.OnVictory();
 
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.combatCount++;
+            UnityEngine.FindObjectOfType<TutorialSystem>()?.OnFirstCombat();
+        }
+
         // 奖励
         if (GameManager.instance != null)
         {

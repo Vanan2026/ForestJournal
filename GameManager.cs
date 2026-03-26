@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour
 
     [Header("叙事")]
     public int memories = 0;  // 记忆碎片
+
+    // 教程追踪计数器
+    public int gatherCount = 0;
+    public int combatCount = 0;
+    public int craftCount = 0;
+    public int npcInteractionCount = 0;
     public List<string> storyFlags = new List<string>();
     public int storyPhase = 1;  // 1-4阶段
     public string gs = "normal";  // "normal" | "gameover" | "victory"
@@ -151,6 +157,9 @@ public class GameManager : MonoBehaviour
 
         ConsumeAP(2);
 
+        npcInteractionCount++;
+        FindObjectOfType<TutorialSystem>()?.OnFirstNPC();
+
         int amount = UnityEngine.Random.Range(1, 4);
         int bonus = GetGatherBonus();
 
@@ -183,6 +192,8 @@ public class GameManager : MonoBehaviour
         if (quest != null)
             quest.OnResourceGathered(resourceType.ToLower(), amount + bonus);
         FindObjectOfType<AudioSystem>()?.OnGather();
+        gatherCount++;
+        FindObjectOfType<TutorialSystem>()?.OnFirstGather();
 
         // 危险事件
         if (UnityEngine.Random.value < 0.15f)
@@ -503,6 +514,9 @@ public class GameManager : MonoBehaviour
         if (!CanTakeAction(2)) return;
 
         ConsumeAP(2);
+
+        npcInteractionCount++;
+        FindObjectOfType<TutorialSystem>()?.OnFirstNPC();
 
         // 检查队伍是否已满（最多4人）
         if (squad.Count >= 4)

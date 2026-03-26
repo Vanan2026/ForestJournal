@@ -253,6 +253,8 @@ public class CraftingSystem : MonoBehaviour
 
         GameManager.instance?.AddLog($"🔨 制作成功：{itemName}");
         FindObjectOfType<AudioSystem>()?.OnCraft();
+        if (GameManager.instance != null) GameManager.instance.craftCount++;
+        UnityEngine.FindObjectOfType<TutorialSystem>()?.OnFirstCraft();
         var quest = UnityEngine.FindObjectOfType<QuestSystem>();
         if (quest != null) quest.OnItemCrafted(recipeId);
         if (JournalSystem.instance != null)
